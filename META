@@ -1,5 +1,5 @@
 version = "1.0.0"
 description = "Statsd client"
 requires = "lwt.unix"
-archive(byte) = "statsd-client.cma"
-archive(native) = "statsd-client.cmxa"
+archive(byte) = "statsd_client.cma"
+archive(native) = "statsd_client.cmxa"
