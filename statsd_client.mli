@@ -6,6 +6,12 @@
 val ipaddr : string option ref
 val port : int option ref
 
+val log_debug : (string -> unit) ref
+  (** Default: do nothing. *)
+
+val log_error : (string -> unit) ref
+  (** Default: log to stderr. *)
+
 module Sync :
   sig
     val gauge : ?sample_rate:float -> string -> int -> unit

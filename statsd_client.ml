@@ -1,6 +1,9 @@
 let ipaddr = ref None
 let port = ref None
 
+let log_debug = ref (fun s -> ())
+let log_error = ref (fun s -> Printf.eprintf "[error] %s\n%!" s)
+
 module Make(U : sig
   val ipaddr         : unit -> string option
     (** Get the host ip address.  Allows for dynamic setting *)
@@ -41,7 +44,7 @@ end) = struct
           match !socket_ref with
             | Some s -> s
             | None   ->
-              Log.logf `Debug "Creating statsd socket";
+              !log_debug "Creating statsd socket";
               let s =
                 U.socket Unix.PF_INET Unix.SOCK_DGRAM
                   protocol_entry.Unix.p_proto
@@ -69,7 +72,8 @@ end) = struct
                   socket_ref := None;
                   U.catch
                     (fun () ->
-                      Log.logf `Debug "Closing statsd socket: %d" retval;
+                      !log_debug
+                        (Printf.sprintf "Closing statsd socket: %d" retval);
                       U.close socket >>= U.return)
                     (fun _e -> U.return ());
                 end
@@ -84,7 +88,7 @@ end) = struct
   let send ?(sample_rate = 1.0) data =
     match U.ipaddr (), U.port () with
       | None, _ | _, None ->
-        Log.logf `Error
+        !log_error
           "Statsd_client.send: \
            uninitialized Statsd_client.host or Statsd_client.port";
         U.return ()

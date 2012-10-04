@@ -1,0 +1,4 @@
+description = "Statsd client"
+requires = "lwt.unix"
+archive(byte) = "statsd-client.cma"
+archive(native) = "statsd-client.cmxa"
