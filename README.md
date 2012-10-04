@@ -1,4 +1,6 @@
 ocaml-statsd-client
 ===================
 
-Statsd client for OCaml
+[Statsd](https://github.com/etsy/statsd) client for OCaml.
+Originally written by @mwells.
+
