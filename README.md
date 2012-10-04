@@ -9,8 +9,9 @@ Installation
 
 Requires:
 
-* ocamlfind (findlib)
-* lwt
+* [findlib](http://projects.camlcity.org/projects/findlib.html)
+  (ocamlfind command)
+* [lwt](http://ocsigen.org/lwt/api/Lwt)
 
 Build:
 
